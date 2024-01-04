@@ -8,6 +8,8 @@ namespace MouseMaze
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
+        private Texture2D MouseTexture;
+        private Texture2D CheeseTexture;
         private SpriteBatch _spriteBatch;
         private Primitive _prim;
         public Maze maze;
@@ -23,7 +25,7 @@ namespace MouseMaze
         {
             int winWidth = GraphicsDevice.Viewport.Width;
             int winHeight = GraphicsDevice.Viewport.Height;
-            maze = new Maze(30, winWidth, winHeight);
+            maze = new Maze(20, winWidth, winHeight);
             maze.InitMaze();
             MousePos = new(_graphics.GraphicsDevice.Viewport.Width / 2, _graphics.GraphicsDevice.Viewport.Height / 2);
             base.Initialize();
@@ -33,6 +35,8 @@ namespace MouseMaze
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _prim = new(_graphics.GraphicsDevice, _spriteBatch);
+            MouseTexture = Content.Load<Texture2D>("mouse");
+            CheeseTexture = Content.Load<Texture2D>("cheese");
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,6 +62,7 @@ namespace MouseMaze
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             maze.DrawMaze(_prim);
+            maze.DrawSprites(_spriteBatch, MouseTexture, CheeseTexture);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

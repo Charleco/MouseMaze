@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MouseMaze
 {
@@ -159,35 +160,37 @@ namespace MouseMaze
                     {
                         if (cells[y, x].GetWallIndex(i) == 1)
                         {
+                            Color WallColor = new(95, 204, 134);
                             if(i == 0)
                             {
-                                prim.Line(new Vector2(x * scale, y * scale), new Vector2((x * scale)+scale , (y * scale)), Color.White);
+                                prim.Line(new Vector2(x * scale, y * scale), new Vector2((x * scale)+scale , (y * scale)), WallColor);
                             }
                             else if(i == 1)
                             {
-                                prim.Line(new Vector2((x * scale)+scale , y * scale), new Vector2((x * scale)+scale, (y * scale)+scale ), Color.White);
+                                prim.Line(new Vector2((x * scale)+scale , y * scale), new Vector2((x * scale)+scale, (y * scale)+scale ), WallColor);
                             }
                             else if(i == 2)
                             {
-                                prim.Line(new Vector2((x * scale), (y * scale)+scale ), new Vector2((x * scale)+scale, (y * scale) + scale), Color.White);
+                                prim.Line(new Vector2((x * scale), (y * scale)+scale ), new Vector2((x * scale)+scale, (y * scale) + scale), WallColor);
                             }
                             else if(i == 3)
                             {
-                                prim.Line(new Vector2(x * scale, (y * scale)), new Vector2(x * scale, (y * scale) + scale), Color.White);
+                                prim.Line(new Vector2(x * scale, (y * scale)), new Vector2(x * scale, (y * scale) + scale), WallColor);
                             }
                         }
                     }
-                    if (cells[y,x].GetHold()==1)
-                    {
-                        Rectangle rect = new (x * scale, y * scale, scale-1, scale-1);
-                        prim.Rectangle(rect, Color.Yellow);
-                    }
-                    if (cells[y, x].GetHold() == 2)
-                    {
-                        Rectangle rect = new(x * scale, y * scale, scale - 1, scale - 1);
-                        prim.Rectangle(rect, Color.Blue);
-                    }
                 }
+            }
+        }
+        public void DrawSprites(SpriteBatch Batch, Texture2D MouseText, Texture2D CheeseText)
+        {
+            foreach(Mice mouse in MouseList)
+            {
+                Batch.Draw(MouseText, new Vector2((mouse.GetX() * scale)+scale/2, (mouse.GetY() * scale)+scale/2),null, Color.White,0f,new Vector2(MouseText.Width/2,MouseText.Height/2),new Vector2(scale/ MouseText.Width, scale/ MouseText.Height),SpriteEffects.None,0f);
+            }
+            foreach (Cell cell in CheeseList)
+            {
+                Batch.Draw(CheeseText, new Vector2((cell.GetX() * scale) + scale / 2, (cell.GetY() * scale) + scale / 2), null, Color.White, 0f, new Vector2(CheeseText.Width / 2, CheeseText.Height / 2), new Vector2(scale / CheeseText.Width, scale / CheeseText.Height), SpriteEffects.None, 0f);
             }
         }
 
