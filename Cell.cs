@@ -5,11 +5,11 @@ namespace MouseMaze
     {
         private int type;
         private int hold;
-        private int x;
-        private int y;
+        private readonly int x;
+        private readonly int y;
         private int[] walls;
         private bool visited;
-        public List<Cell> ConnectCells;
+        private List<Cell> ConnectCells;
         public Cell(int x, int y)
         {
             this.x = x;
@@ -21,14 +21,6 @@ namespace MouseMaze
             hold = 0;
             visited= false;
             ConnectCells = new();
-        }
-        public void SetConnectCells(List<Cell> ConnectCells)
-        {
-            this.ConnectCells = ConnectCells;
-        }
-        public List<Cell> GetConnectCells()
-        {
-            return ConnectCells;
         }
         public int GetCellType()
         {
@@ -69,6 +61,22 @@ namespace MouseMaze
         public void SetWallIndex(int index, int type)
         {
             this.walls[index] = type;
+        }
+        public void AddConnectCell(Cell cell)
+        {
+            ConnectCells.Add(cell);
+        }
+        public Cell GetConnectCell(int index)
+        {
+            return ConnectCells[index];
+        }
+        public void SetConnectCells(List<Cell> ConnectCells)
+        {
+            this.ConnectCells = ConnectCells;
+        }
+        public List<Cell> GetConnectCells()
+        {
+            return ConnectCells;
         }
     }
 }

@@ -44,11 +44,11 @@ namespace MouseMaze
             if (sum > .2)
             {
                 sum = 0;
-                Cell NextCell = current.ConnectCells[rand.Next(current.GetConnectCells().Count)];
-                if (current.ConnectCells.Count > 1 && current.ConnectCells[0] != Target)
+                Cell NextCell = current.GetConnectCell(rand.Next(current.GetConnectCells().Count));
+                if (current.GetConnectCells().Count > 1 && current.GetConnectCell(0) != Target)
                     while (NextCell == OldCell)
                     {
-                        NextCell = current.ConnectCells[rand.Next(current.GetConnectCells().Count)];
+                        NextCell = current.GetConnectCell(rand.Next(current.GetConnectCells().Count));
                     }
                 X = NextCell.GetX();
                 Y = NextCell.GetY();
@@ -69,7 +69,6 @@ namespace MouseMaze
         }
         public void CheeseMove(Cell current, Cell target, float dt)
         {
-            System.Diagnostics.Debug.WriteLine(Path.Count);
             if (Path.Count > 0 && target == Path[^1])
             {
                 sum += dt;

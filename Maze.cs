@@ -25,6 +25,10 @@ namespace MouseMaze
             MouseList = new List<Mice>();
             CheeseList = new List<Cell>();
         }
+        public int GetScale()
+        {
+            return scale;
+        }
         public void AddCheese(int x, int y)
         {
             if (cells[y, x].GetHold() == 0)
@@ -64,10 +68,6 @@ namespace MouseMaze
                     
             }
         }   
-        public int GetScale()
-        {
-            return scale;
-        }
         public void InitMaze()
         {
             for(int y = 0; y< height; y++)
@@ -123,31 +123,31 @@ namespace MouseMaze
             if(x == 1)
             {
                 current.SetWallIndex(3, 0);
-                current.ConnectCells.Add(next);
+                current.AddConnectCell(next);
                 next.SetWallIndex(1, 0);
-                next.ConnectCells.Add(current);
+                next.AddConnectCell(current);
             }
             else if(x == -1)
             {
                 current.SetWallIndex(1, 0);
-                current.ConnectCells.Add(next);
+                current.AddConnectCell(next);
                 next.SetWallIndex(3,0);
-                next.ConnectCells.Add(current);
+                next.AddConnectCell(current);
             }
             int y = current.GetY() - next.GetY();
             if(y == 1)
             {
                 current.SetWallIndex(0, 0);
-                current.ConnectCells.Add(next);
+                current.AddConnectCell(next);
                 next.SetWallIndex(2, 0);
-                next.ConnectCells.Add(current);
+                next.AddConnectCell(current);
             }
             else if(y == -1)
             {
                 current.SetWallIndex(2, 0);
-                current.ConnectCells.Add(next);
+                current.AddConnectCell(next);
                 next.SetWallIndex(0, 0);
-                next.ConnectCells.Add(current);
+                next.AddConnectCell(current);
             }
         }
         public void DrawMaze(Primitive prim)

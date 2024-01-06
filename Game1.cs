@@ -12,7 +12,7 @@ namespace MouseMaze
         private Texture2D CheeseTexture;
         private SpriteBatch _spriteBatch;
         private Primitive _prim;
-        public Maze maze;
+        private Maze maze;
         private Vector2 MousePos;
         public Game1()
         {
@@ -25,7 +25,7 @@ namespace MouseMaze
         {
             int winWidth = GraphicsDevice.Viewport.Width;
             int winHeight = GraphicsDevice.Viewport.Height;
-            maze = new Maze(20, winWidth, winHeight);
+            maze = new Maze(30, winWidth, winHeight);
             maze.InitMaze();
             MousePos = new(_graphics.GraphicsDevice.Viewport.Width / 2, _graphics.GraphicsDevice.Viewport.Height / 2);
             base.Initialize();
