@@ -46,10 +46,10 @@ namespace MouseMaze
             MousePos.Y = mouseState.Y;
             if ((MousePos.X > 0 && MousePos.X < _graphics.GraphicsDevice.Viewport.Width) && (MousePos.Y > 0 && MousePos.Y < _graphics.GraphicsDevice.Viewport.Height))
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Pressed) //Spawn Cheese
                     maze.AddCheese((int)MousePos.X / maze.GetScale(), (int)MousePos.Y / maze.GetScale());
 
-                if (mouseState.RightButton == ButtonState.Pressed)
+                if (mouseState.RightButton == ButtonState.Pressed) //Spawn Mouse
                     maze.AddMouse((int)MousePos.X / maze.GetScale(), (int)MousePos.Y / maze.GetScale());
             }
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;

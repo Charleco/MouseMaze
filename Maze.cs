@@ -25,11 +25,7 @@ namespace MouseMaze
             MouseList = new List<Mice>();
             CheeseList = new List<Cell>();
         }
-        public int GetScale()
-        {
-            return scale;
-        }
-        public void AddCheese(int x, int y)
+        public void AddCheese(int x, int y) 
         {
             if (cells[y, x].GetHold() == 0)
             {
@@ -37,7 +33,7 @@ namespace MouseMaze
                 CheeseList.Add(cells[y, x]);
             }
         }
-        public void AddMouse(int x, int y)
+        public void AddMouse(int x, int y) //A new mouse enters the arena
         {
             if (cells[y, x].GetHold() == 0)
             {
@@ -45,14 +41,14 @@ namespace MouseMaze
                 MouseList.Add(mouse);
             }
         }
-        public void MouseListUpdate(float dt)
+        public void MouseListUpdate(float dt) //Update Mice Behavior and Position
         {
             foreach(Mice mouse in MouseList)
             {
                 int x = mouse.GetX();
                 int y = mouse.GetY();
                 cells[y, x].SetHold(2);
-                if (Mice.CheeseFind(CheeseList))
+                if (Mice.CanCheeseFind(CheeseList))
                 {
                     mouse.CheeseMove(cells[y, x], mouse.NearestCheese(CheeseList), dt);
                     if (Mice.CheeseCheck(cells[y, x], CheeseList))
@@ -68,7 +64,7 @@ namespace MouseMaze
                     
             }
         }   
-        public void InitMaze()
+        public void InitMaze() //Initialize the Cells in the Maze and Starts Generation
         {
             for(int y = 0; y< height; y++)
             {
@@ -80,7 +76,7 @@ namespace MouseMaze
             }
             MazeGen();
         }
-        public void MazeGen()
+        public void MazeGen() //Depth First Search Maze Generation
         {
             cells[1,1].SetVisited(true);
             stack.Push(cells[1, 1]);
@@ -158,7 +154,7 @@ namespace MouseMaze
                 {
                     for(int i = 0; i < 4; i++)
                     {
-                        if (cells[y, x].GetWallIndex(i) == 1)
+                        if (cells[y, x].GetWallIndex(i) == 1) //if the wall exists, draw a line there
                         {
                             Color WallColor = new(95, 204, 134);
                             if(i == 0)
@@ -193,6 +189,9 @@ namespace MouseMaze
                 Batch.Draw(CheeseText, new Vector2((cell.GetX() * scale) + scale / 2, (cell.GetY() * scale) + scale / 2), null, Color.White, 0f, new Vector2(CheeseText.Width / 2, CheeseText.Height / 2), new Vector2(scale / CheeseText.Width, scale / CheeseText.Height), SpriteEffects.None, 0f);
             }
         }
-
+        public int GetScale()
+        {
+            return scale;
+        }
     }
 }

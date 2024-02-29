@@ -20,24 +20,8 @@ namespace MouseMaze
             Visited = new();
             Path = new();
         }
-        public int GetX()
-        {
-            return X;
-        }
-        public int GetY()
-        {
-            return Y;
-        }
-        public static bool CheeseFind(List<Cell> list)
-        {
-            return list.Count > 0;
-        }
-        public static int ManHatDist(Cell current, Cell target)
-        {
-            return Math.Abs(current.GetX() - target.GetX()) + Math.Abs(current.GetY() - target.GetY());
-        }
-        
-        public void Wander(Cell current, float dt)
+ 
+        public void Wander(Cell current, float dt) // Random Mouse Algorithm
         {
             Random rand = new();
             sum += dt;
@@ -56,7 +40,7 @@ namespace MouseMaze
                 current.SetHold(0);
             }
         }
-        public bool CheeseHunt(Cell current, Cell target, float dt)
+        public bool CheeseHunt(Cell current, Cell target, float dt) // Depth First Search Path Generation to Cheese
         {
             if (Visited.Contains(current)) return false;
             Visited.Add(current);
@@ -69,7 +53,7 @@ namespace MouseMaze
         }
         public void CheeseMove(Cell current, Cell target, float dt)
         {
-            if (Path.Count > 0 && target == Path[^1])
+            if (Path.Count > 0 && target == Path[^1]) // If the target is still the same, continue moving
             {
                 sum += dt;
                 if (sum > .2)
@@ -83,14 +67,14 @@ namespace MouseMaze
                     current.SetHold(0);
                 }
             }
-            else
+            else // else, generate a new path
             {
                 Path = new();
                 Visited = new();
                 CheeseHunt(current, target, dt);
             }
         }
-        public Cell NearestCheese(List<Cell> CheeseList)
+        public Cell NearestCheese(List<Cell> CheeseList) // Uses Manhattan Distance to find the nearest cheese
         {
             Cell nearest = CheeseList[0];
             foreach (Cell cheese in CheeseList)
@@ -102,7 +86,7 @@ namespace MouseMaze
             }
             return nearest;
         }
-        public static bool CheeseCheck(Cell current, List<Cell> CheeseList)
+        public static bool CheeseCheck(Cell current, List<Cell> CheeseList) // Checks if the mouse's current cell has cheese
         {
             foreach (Cell cheese in CheeseList)
             {
@@ -112,6 +96,22 @@ namespace MouseMaze
                 }
             }
             return false;
+        }
+        public static bool CanCheeseFind(List<Cell> list) // Is Cheese in the Maze
+        {
+            return list.Count > 0;
+        }
+        public static int ManHatDist(Cell current, Cell target)
+        {
+            return Math.Abs(current.GetX() - target.GetX()) + Math.Abs(current.GetY() - target.GetY());
+        }
+        public int GetX()
+        {
+            return X;
+        }
+        public int GetY()
+        {
+            return Y;
         }
     }
 }
